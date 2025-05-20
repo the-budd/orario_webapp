@@ -1,0 +1,946 @@
+:root {
+    --font-scale-factor: 1;
+    --base-font-size-desktop: 13px;
+    --base-font-size-mobile: 15px;
+    --base-font-size-small-mobile: 16px;
+    --current-base-font-size: var(--base-font-size-desktop);
+    --table-font-size: calc(var(--current-base-font-size) * var(--font-scale-factor));
+    --entry-font-size: calc(0.9em * var(--font-scale-factor));
+    --header-h1-size: calc(1.6em * var(--font-scale-factor));
+    --time-slot-font-size-desktop: calc(0.85em * var(--font-scale-factor));
+    --time-slot-font-size-mobile: calc(1em * var(--font-scale-factor));
+    --th-font-size-desktop: calc(0.9em * var(--font-scale-factor));
+    --th-font-size-mobile: calc(0.95em * var(--font-scale-factor));
+    /* Aggiungi altre variabili per elementi specifici se necessario */
+}
+
+/* Stili CSS per l'applicazione */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #e9ecef;
+    color: #333;
+    font-size: var(--table-font-size);
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s, font-size 0.2s;
+}
+
+.container {
+    width: 98%; /* Un po' più largo per sfruttare meglio lo spazio */
+    max-width: 1400px; /* Limite per schermi molto grandi */
+    margin: 15px auto;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: background-color 0.3s; /* Per transizione tema scuro */
+}
+
+.header {
+    display: flex;
+    flex-wrap: wrap; /* Permette ai filtri di andare a capo su mobile */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.header h1 {
+    color: #0056b3; 
+    margin: 0 0 10px 0; /* Aggiunto margine sotto per mobile */
+    font-size: var(--header-h1-size);
+    flex-basis: 100%; /* Occupa tutta la larghezza inizialmente */
+}
+
+.header .controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* Permette ai controlli di andare a capo */
+    width: 100%; /* Occupa tutta la larghezza per allineare a destra i filtri/switch*/
+    justify-content: space-between; /* Spazio tra titolo e filtri/switch*/
+    gap: 10px; /* Aggiunge spazio tra i gruppi di controlli (filtri, font, tema) */
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; 
+    margin-bottom: 10px; 
+    flex-wrap: wrap; /* Permette ai filtri di andare a capo singolarmente */
+}
+
+.filters label {
+    margin-right: 5px;
+    font-weight: bold;
+    white-space: nowrap; 
+    margin-left: 10px; /* Aggiunge spazio a sinistra di ogni label, tranne la prima */
+}
+
+.filters label:first-of-type {
+    margin-left: 0; /* Rimuove margine extra per la prima label */
+}
+
+.filters select {
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    min-width: 150px; /* Leggermente ridotto per farceli stare meglio */
+    font-size: 0.95em;
+    margin-right: 10px; /* Spazio tra i select */
+    margin-bottom: 5px; /* Spazio se vanno a capo */
+}
+
+.theme-switcher {
+    margin-left: 15px; /* Spazio dal filtro */
+    margin-bottom:10px; /* Spazio se va a capo */
+}
+
+.theme-switcher button {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.font-controls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Coerenza con gli altri controlli */
+}
+
+.font-controls button {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    font-size: 0.9em; /* Relativo al font del body */
+    margin: 0 2px;
+    min-width: 30px; /* Larghezza minima per i pulsanti A- A A+ */
+}
+
+.font-controls button:hover {
+    background-color: #e9ecef;
+}
+
+/* Stili specifici per la Navbar Bootstrap - Tema Chiaro (default) */
+.navbar.navbar-light.bg-light {
+    border-bottom: 1px solid #dee2e6; /* Bordo standard Bootstrap */
+    transition: background-color 0.3s, border-bottom 0.3s; /* Transizione per tema */
+}
+
+.navbar.navbar-light.bg-light .navbar-brand {
+    color: #004085; /* Blu più scuro per maggiore contrasto */
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar.navbar-light.bg-light .nav-link {
+    color: #212529; /* Nero quasi pieno per i link, standard Bootstrap per testo scuro */
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar.navbar-light.bg-light .nav-link:hover,
+.navbar.navbar-light.bg-light .nav-link:focus {
+    color: #003d80; /* Blu scuro (più scuro del brand) per hover/focus */
+}
+
+/* Pulsante Tema - Tema Chiaro */
+.navbar.navbar-light.bg-light .btn-outline-secondary#themeToggleBtn {
+    color: #004085; /* Blu scuro coordinato con brand */
+    border-color: #004085;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.navbar.navbar-light.bg-light .btn-outline-secondary#themeToggleBtn:hover {
+    color: #ffffff;
+    background-color: #004085; /* Sfondo blu scuro su hover */
+    border-color: #004085;
+}
+
+.schedule-container {
+    overflow-x: auto; /* Permette lo scroll orizzontale se la tabella è troppo larga */
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.schedule-table th,
+.schedule-table td {
+    border: 1px solid #ddd;
+    padding: 6px 8px; /* Padding ridotto */
+    text-align: left;
+    vertical-align: top; 
+    height: auto; /* Altezza automatica, si adatta al contenuto */
+    min-height: 80px; /* Altezza minima */
+}
+
+.schedule-table th {
+    background-color: #e9ecef;
+    font-weight: bold;
+    text-align: center;
+    font-size: var(--th-font-size-desktop);
+    white-space: nowrap; /* Evita che i nomi dei giorni vadano a capo */
+}
+
+.time-slot-cell {
+    font-weight: bold;
+    background-color: #f8f9fa;
+    text-align: center;
+    width: 80px; /* Larghezza ridotta per la colonna ore */
+    font-size: var(--time-slot-font-size-desktop);
+    white-space: nowrap;
+    padding: 8px 4px;
+}
+
+.schedule-cell {
+    min-width: 120px; /* Larghezza minima per le celle delle lezioni */
+}
+
+.schedule-entry {
+    background-color: #e7f3ff; 
+    border: 1px solid #b3d7ff;
+    border-radius: 4px;
+    padding: 5px;
+    margin-bottom: 4px;
+    font-size: var(--entry-font-size);
+    line-height: 1.3;
+}
+
+.schedule-entry strong {
+    color: #004085; /* Blu più scuro per la materia, migliora contrasto */
+    font-size: 1.05em; /* Leggermente più grande per la materia */
+}
+
+.schedule-entry em { 
+    font-style: italic;
+    color: #495057; /* Grigio più scuro per docente, migliora contrasto */
+    display: block; 
+    margin-top: 2px;
+}
+
+.placeholder-teacher-entry {
+    background-color: #fff3cd; /* Giallo chiaro per placeholder */
+    border: 1px solid #ffeeba;
+    color: #856404; /* Testo scuro per placeholder */
+}
+
+/* Stili per il tema scuro */
+body.dark-theme {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-theme .container {
+    background-color: #1e1e1e;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-theme .header {
+    border-bottom: 1px solid #444;
+}
+
+body.dark-theme .header h1 {
+    color: #79c0ff; /* Blu più brillante per il tema scuro */
+}
+
+body.dark-theme .filters select, 
+body.dark-theme .theme-switcher button {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    border-color: #555;
+}
+
+body.dark-theme .schedule-table th,
+body.dark-theme .schedule-table td {
+    border: 1px solid #444;
+}
+
+body.dark-theme .schedule-table th {
+    background-color: #2c2c2c;
+}
+
+body.dark-theme .time-slot-cell {
+    background-color: #272727;
+}
+
+body.dark-theme .schedule-entry {
+    background-color: #2a3b4d; /* Blu scuro per le entry */
+    border-color: #3a506b;
+}
+
+body.dark-theme .schedule-entry strong {
+    color: #90cfff; /* Blu chiaro per materia - CORRETTO */
+}
+
+body.dark-theme .schedule-entry em {
+    color: #c0c0c0; /* Grigio più chiaro per docente - CORRETTO */
+}
+
+body.dark-theme .placeholder-teacher-entry {
+    background-color: #4d4430;
+    border-color: #6b5f38;
+    color: #d4b470; /* Testo giallognolo per placeholder in tema scuro */
+}
+
+body.dark-theme .font-controls button {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    border-color: #555;
+}
+
+body.dark-theme .font-controls button:hover {
+    background-color: #3a3a3a;
+}
+
+/* Media Queries per responsive */
+@media (max-width: 768px) {
+    :root {
+        --current-base-font-size: var(--base-font-size-mobile);
+    }
+    
+    body {
+        font-size: var(--current-base-font-size);
+    }
+    .header h1 {
+        font-size: 1.4em;
+    }
+    .filters {
+        flex-direction: column; 
+        align-items: stretch; /* Filtri a tutta larghezza in colonna */
+    }
+    .filters label {
+        margin-left: 0;
+        margin-top: 8px; /* Spazio sopra le label quando in colonna */
+    }
+    .filters label:first-of-type {
+        margin-top: 0;
+    }
+    .filters select {
+        min-width: 100%; 
+        margin-right: 0; /* Rimuovi margine destro quando in colonna */
+        margin-bottom: 8px;
+    }
+    .theme-switcher {
+        margin-left: 0;
+        margin-top: 10px; /* Spazio sopra lo switcher */
+        width:100%;
+    }
+     .theme-switcher button{
+        width:100%;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+        padding: 4px;
+    }
+    .time-slot-cell {
+        font-size: var(--time-slot-font-size-mobile);
+        width: 65px;
+        white-space: normal;
+        word-break: break-word;
+    }
+    .schedule-cell {
+        min-width: 100px;
+    }
+    .schedule-entry {
+        font-size: 0.8em;
+    }
+    .header .controls {
+        flex-direction: column; /* Controlli principali in colonna */
+        align-items: stretch; /* Occupa tutta la larghezza */
+    }
+    .font-controls {
+        justify-content: center; /* Centra i pulsanti A- A A+ */
+        margin-top:10px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --current-base-font-size: var(--base-font-size-small-mobile);
+    }
+
+    .header h1 {
+        font-size: calc(1.4em * var(--font-scale-factor));
+    }
+    .time-slot-cell {
+        font-size: calc(1.05em * var(--font-scale-factor));
+        width: 60px;
+    }
+    .schedule-entry {
+        line-height: 1.5;
+    }
+    .schedule-table th {
+        font-size: calc(1em * var(--font-scale-factor));
+    }
+}
+
+.filters label[for=\"dayFilter\"] {
+    margin-left: 0; /* Il filtro giorno è il primo, nessun margine a sx */
+}
+
+.schedule-table th.hidden-day-header,
+.schedule-table td.hidden-day-cell {
+    display: none;
+}
+
+/* Quando un giorno è selezionato su mobile, potremmo voler dare più spazio alla colonna visibile */
+.schedule-table th.visible-day-header,
+.schedule-table td.visible-day-cell {
+    /* Esempio: min-width: 150px !important; o simile se necessario */
+}
+
+.schedule-table .time-header {
+    /* Potrebbe essere necessario aggiustare la larghezza della colonna Ora se le altre scompaiono */
+}
+
+/* Stili per la pagina Sostituzioni */
+.sostituzioni-container .header h1 {
+    margin-bottom: 20px;
+}
+
+.sostituzioni-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Spazio tra i gruppi di form */
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f9f9f9; /* Leggero sfondo per il form */
+    border-radius: 6px;
+    border: 1px solid #eee;
+}
+
+.sostituzioni-form .form-group {
+    display: flex;
+    flex-direction: column; /* Label sopra il select */
+    flex-basis: 200px; /* Larghezza base per i gruppi, si adatteranno */
+    flex-grow: 1;
+}
+
+.sostituzioni-form .form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 0.95em;
+}
+
+.sostituzioni-form .form-group select,
+.sostituzioni-form .form-group button {
+    padding: 10px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    width: 100%; /* Occupa tutta la larghezza del form-group */
+}
+
+.sostituzioni-form .form-group button.btn-primary {
+    background-color: #007bff; /* Blu primario per il pulsante */
+    color: white;
+    cursor: pointer;
+    border-color: #007bff;
+    transition: background-color 0.2s;
+}
+
+.sostituzioni-form .form-group button.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Allinea il pulsante all'ultima riga se i filtri vanno su più righe */
+.sostituzioni-form .form-group:has(button) {
+    align-self: flex-end;
+}
+
+.risultati-sostituzioni h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--header-h1-color, #0056b3); /* Usa variabile se definita, altrimenti default */
+}
+
+#listaDocentiDisponibili {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#listaDocentiDisponibili li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 1.05em;
+}
+
+#listaDocentiDisponibili li:last-child {
+    border-bottom: none;
+}
+
+#listaDocentiDisponibili li.no-results {
+    color: #777;
+    font-style: italic;
+}
+
+/* Stili Tema Scuro per Sostituzioni */
+body.dark-theme .sostituzioni-form {
+    background-color: #252525; 
+    border-color: #3a3a3a;
+}
+
+body.dark-theme .sostituzioni-form .form-group label {
+    color: #c0c0c0; /* Testo label più chiaro */
+}
+
+body.dark-theme .sostituzioni-form .form-group select,
+body.dark-theme .sostituzioni-form .form-group button {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    border-color: #555;
+}
+
+body.dark-theme .sostituzioni-form .form-group button.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+body.dark-theme .sostituzioni-form .form-group button.btn-primary:hover {
+    background-color: #0a58ca;
+}
+
+body.dark-theme #listaDocentiDisponibili li {
+    border-bottom-color: #3a3a3a;
+}
+
+body.dark-theme #listaDocentiDisponibili li.no-results {
+    color: #888;
+}
+
+/* Responsive per Sostituzioni Form */
+@media (max-width: 768px) {
+    .sostituzioni-form .form-group {
+        flex-basis: 100%; /* Ogni gruppo di form occupa tutta la larghezza */
+    }
+    .sostituzioni-form .form-group:has(button) {
+      align-self: stretch; /* Il pulsante occupa tutta la larghezza */
+    }
+}
+
+.sostituzioni-container section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #ccc;
+}
+
+.sostituzioni-container section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.sostituzioni-container h2, .sostituzioni-container h3 {
+    color: var(--header-h1-color, #0056b3);
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.form-inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end; /* Allinea gli elementi in basso (utile per il pulsante accanto al select) */
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-inline .form-group {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.form-inline .form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-inline .form-group input[type=\"date\"],
+.form-inline .form-group select {
+    padding: 10px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    width: 100%; /* Occupa larghezza del .form-group */
+    box-sizing: border-box;
+}
+
+.form-inline .form-group button.btn-secondary {
+    padding: 10px 15px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    height: calc(2.25em + 20px + 2px); /* Per allinearsi con altezza select+padding+border */
+}
+.form-inline .form-group button.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.lista-docenti-assenti {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.lista-docenti-assenti li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    background-color: #f9f9f9;
+}
+
+.lista-docenti-assenti li > span {
+    font-weight: bold;
+    margin-right: 15px;
+    flex-grow: 1;
+}
+
+.lista-docenti-assenti .absence-type {
+    display: flex;
+    gap: 10px;
+    margin-right: 15px;
+    align-items: center;
+}
+.lista-docenti-assenti .absence-type label {
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor:pointer;
+}
+
+.lista-docenti-assenti .specific-hours {
+    flex-basis: 100%; 
+    padding: 8px;
+    margin-top: 8px;
+    background-color: #fff;
+    border: 1px dashed #ccc;
+    border-radius: 3px;
+    display: flex; /* Aggiunto per allineare i checkbox */
+    flex-wrap: wrap; /* Per andare a capo */
+    gap: 10px; /* Spazio tra i checkbox */
+}
+
+.lista-docenti-assenti .specific-hours .checkbox-label {
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.lista-docenti-assenti .specific-hours .checkbox-label input {
+    margin-right: 4px;
+}
+
+.lista-docenti-assenti button.remove-assente-btn {
+    background: none;
+    border: none;
+    color: #dc3545;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 0 5px;
+}
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+.btn-sm {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    border-radius: .2rem;
+}
+.btn-lg {
+    padding: .5rem 1rem;
+    font-size: 1.25rem;
+    border-radius: .3rem;
+}
+.lista-docenti-assenti li.no-selection {
+    justify-content: center;
+    color: #6c757d;
+    font-style: italic;
+    background-color: #f8f9fa;
+}
+
+body.dark-theme .sostituzioni-container section {
+    border-bottom-color: #444;
+}
+body.dark-theme .form-inline .form-group input[type=\"date\"],
+body.dark-theme .form-inline .form-group select {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    border-color: #555;
+}
+body.dark-theme .form-inline .form-group button.btn-secondary {
+    background-color: #5a6268;
+}
+body.dark-theme .form-inline .form-group button.btn-secondary:hover {
+    background-color: #474c51;
+}
+body.dark-theme .lista-docenti-assenti li {
+    background-color: #2c2f33;
+    border-color: #4f545c;
+}
+body.dark-theme .lista-docenti-assenti .specific-hours {
+    background-color: #1e1e1e;
+    border-color: #444;
+}
+body.dark-theme .lista-docenti-assenti li.no-selection {
+    background-color: #23272b;
+    color: #909396;
+}
+body.dark-theme .text-danger {
+    color: #ff6b6b !important; /* Rosso più brillante per tema scuro */
+}
+
+@media (max-width: 768px) {
+    .form-inline {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .form-inline .form-group {
+        width: 100%;
+    }
+    .form-inline .form-group button.btn-secondary {
+        width: 100%;
+        height: auto; /* Reset altezza per adattarsi al contenuto */
+    }
+    .lista-docenti-assenti li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .lista-docenti-assenti li > span {
+        margin-bottom: 8px;
+    }
+    .lista-docenti-assenti .absence-type {
+        margin-bottom: 8px;
+        width: 100%;
+    }
+    .lista-docenti-assenti button.remove-assente-btn {
+        align-self: flex-end;
+        margin-top: 5px;
+    }
+}
+
+.text-danger {
+    color: #dc3545 !important; /* Bootstrap default red */
+}
+
+/* === NUOVI STILI PER SOSTITUZIONI LAYOUT E COMPONENTI === */
+
+.sostituzioni-layout-grid {
+    display: flex;
+    flex-wrap: wrap; /* Le colonne andranno a capo su schermi piccoli */
+    gap: 20px; /* Spazio tra le colonne */
+}
+
+.colonna-gestione-assenze {
+    flex: 1 1 400px; /* Base di 400px, può crescere e restringersi */
+    min-width: 320px; /* Larghezza minima prima di andare a capo */
+}
+
+.colonna-visualizzazione-slot {
+    flex: 2 1 500px; /* Base di 500px, può crescere (più della prima colonna) e restringersi */
+    min-width: 320px;
+}
+
+/* Stili per le card usate in sostituzioni.html (se non si usa Bootstrap) */
+.card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    padding: 12px 15px;
+    border-bottom: 1px solid #e0e0e0;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.card-header h2, .card-header h4, .card-header h5, .card-header h6 {
+    margin: 0;
+    font-size: 1.15rem; /* Dimensione per gli header delle card */
+    color: #333;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+/* Miglioramenti per lista docenti assenti dentro la card */
+/* .lista-docenti-assenti definito prima, qui eventuali sovrascritture o aggiunte specifiche per card */
+.card .lista-docenti-assenti {
+    max-height: 400px; /* Limita altezza e abilita scroll se necessario */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0; /* Rimuovi padding di default di ul */
+    margin-bottom: 0; /* Se è l'ultimo elemento */
+}
+
+.card .lista-docenti-assenti li {
+    padding: 10px 15px; 
+    margin-bottom: 0; /* No margin bottom per li interni alla card */
+    border-bottom: 1px solid #eee; /* Separatore tra li */
+}
+.card .lista-docenti-assenti li:last-child {
+    border-bottom: none;
+}
+
+
+/* Stili per la tabella dei suggerimenti */
+#slotDaCoprireContainer .table {
+    margin-bottom: 0; /* Rimuovi margine inferiore se la tabella è l'ultimo elemento in card-body */
+}
+
+#slotDaCoprireContainer .table th {
+    background-color: #e9ecef;
+    font-weight: 600; /* Leggermente più bold */
+    font-size: 0.9rem;
+    padding: 8px 10px;
+}
+
+#slotDaCoprireContainer .table td {
+    font-size: 0.88rem;
+    vertical-align: middle;
+    padding: 8px 10px;
+}
+
+#slotDaCoprireContainer .table .badge {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+}
+
+#slotDaCoprireContainer .btn-assign-sostituto {
+    font-size: 0.8rem;
+    padding: 3px 8px;
+}
+
+/* Input group styling (per select e button sulla stessa riga) */
+.input-group {
+    display: flex;
+    width: 100%;
+}
+
+.input-group .form-control {
+    flex-grow: 1;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.input-group button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* Stili per tema scuro specifici per i nuovi elementi */
+body.dark-theme .card {
+    background-color: #2c2f33; /* Sfondo card per tema scuro */
+    border-color: #4f545c;
+}
+
+body.dark-theme .card-header {
+    background-color: #3a3e44;
+    border-bottom-color: #4f545c;
+}
+
+body.dark-theme .card-header h2, 
+body.dark-theme .card-header h4, 
+body.dark-theme .card-header h5, 
+body.dark-theme .card-header h6 {
+    color: #e0e0e0;
+}
+
+body.dark-theme .card .lista-docenti-assenti {
+    border-color: #4f545c;
+}
+body.dark-theme .card .lista-docenti-assenti li {
+    border-bottom-color: #4f545c;
+}
+body.dark-theme .card .lista-docenti-assenti li:last-child {
+    border-bottom: none;
+}
+
+
+body.dark-theme #slotDaCoprireContainer .table th {
+    background-color: #3a3e44;
+    color: #e0e0e0;
+    border-color: #4f545c;
+}
+
+body.dark-theme #slotDaCoprireContainer .table td {
+    border-color: #4f545c;
+}
+
+body.dark-theme #slotDaCoprireContainer .table {
+    color: #e0e0e0; /* Colore testo tabella */
+}
+
+body.dark-theme #slotDaCoprireContainer .badge-info {
+    background-color: #17a2b8; /* Manteniamo un colore per i badge o adattiamo */
+    color: #fff;
+}
+
+/* Tema Scuro per Navbar - CORRETTO */
+body.dark-theme .navbar.navbar-light.bg-light {
+    background-color: #2b3035 !important; 
+    border-bottom: 1px solid #3e444a; 
+}
+
+body.dark-theme .navbar.navbar-light.bg-light .navbar-brand {
+    color: #e8eaed; 
+}
+
+body.dark-theme .navbar.navbar-light.bg-light .nav-link {
+    color: #c1c8d0; 
+}
+
+body.dark-theme .navbar.navbar-light.bg-light .nav-link:hover,
+body.dark-theme .navbar.navbar-light.bg-light .nav-link:focus {
+    color: #ffffff; 
+}
+
+/* Icona del Toggler per tema scuro */
+body.dark-theme .navbar.navbar-light.bg-light .navbar-toggler {
+    border-color: rgba(232, 234, 237, 0.25); /* Adattato per coerenza con il testo del tema scuro del bottone */
+}
+body.dark-theme .navbar.navbar-light.bg-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(232, 234, 237, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Pulsante Tema - Tema Scuro */
+body.dark-theme .navbar.navbar-light.bg-light .btn-outline-secondary#themeToggleBtn {
+    color: #e8eaed; 
+    border-color: #e8eaed;
+}
+
+body.dark-theme .navbar.navbar-light.bg-light .btn-outline-secondary#themeToggleBtn:hover {
+    color: #2b3035; 
+    background-color: #e8eaed; 
+    border-color: #e8eaed;
+}

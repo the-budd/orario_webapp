@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container">
+        <header class="header">
+            <h1>Orario Settimanale</h1>
+            <div class="controls">
+                <div class="filters">
+                    <label for="dayFilter">Giorno:</label>
+                    <select id="dayFilter">
+                        <option value="">Orario Completo</option>
+                    </select>
+
+                    <label for="teacherFilter">Docente:</label>
+                    <select id="teacherFilter">
+                        <option value="">-- Tutti --</option>
+                    </select>
+
+                    <label for="classFilter">Classe:</label>
+                    <select id="classFilter">
+                        <option value="">-- Tutte --</option>
+                    </select>
+
+                    <label for="roomFilter">Aula:</label>
+                    <select id="roomFilter">
+                        <option value="">-- Tutte --</option>
+                    </select>
+                </div>
+                <div class="font-controls">
+                    <button id="decreaseFontBtn" title="Diminuisci carattere">A-</button>
+                    <button id="resetFontBtn" title="Resetta carattere">A</button>
+                    <button id="increaseFontBtn" title="Aumenta carattere">A+</button>
+                </div>
+                <div class="theme-switcher">
+                    <button id="themeToggleBtn">Cambia Tema</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="schedule-container">
+            <table id="scheduleTable" class="schedule-table">
+                <thead>
+                    <tr>
+                        <th class="time-header">Ora</th>
+                        <th data-day="LUNEDI">LUNEDI</th>
+                        <th data-day="MARTEDI">MARTEDI</th>
+                        <th data-day="MERCOLEDI">MERCOLEDI</th>
+                        <th data-day="GIOVEDI">GIOVEDI</th>
+                        <th data-day="VENERDI">VENERDI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Le righe dell'orario verranno popolate da JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %} 

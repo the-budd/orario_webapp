@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}Occupazione Spazi{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Mappa Occupazione Spazi</h2>
+
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label for="giornoSelectOccupazione" class="form-label">Giorno:</label>
+            <select id="giornoSelectOccupazione" class="form-select">
+                <option value="">-- Seleziona Giorno --</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="slotSelectOccupazione" class="form-label">Slot Orario:</label>
+            <select id="slotSelectOccupazione" class="form-select">
+                <option value="">-- Seleziona Slot --</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="pianoSelectOccupazione" class="form-label">Piano:</label>
+            <select id="pianoSelectOccupazione" class="form-select">
+                <!-- Opzioni popolate da JavaScript -->
+            </select>
+        </div>
+    </div>
+
+    <div id="mappa-aule-container" class="mt-4">
+        <!-- La mappa delle aule verrà disegnata qui da JavaScript -->
+        <p class="text-muted">Seleziona un giorno e uno slot orario per visualizzare l'occupazione delle aule.</p>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block page_scripts %}
+{# Rimuovo {{ super() }} perché gli script di layout sono già caricati #}
+<script src="{{ url_for('static', filename='js/occupazione_aule.js') }}"></script>
+{% endblock %} 

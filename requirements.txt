@@ -1,0 +1,8 @@
+Flask>=2.0
+Flask-SQLAlchemy>=2.5
+Flask-Migrate>=3.0
+flask-dance>=5.0.0
+python-dotenv
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib

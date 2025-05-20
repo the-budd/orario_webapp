@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container sostituzioni-container">
+    <header class="header">
+        <h1>Gestione Sostituzioni Giornaliere</h1>
+    </header>
+
+    <div class="sostituzioni-layout-grid"> 
+        <div class="colonna-gestione-assenze">
+            <section class="selezione-giorno-docenti card">
+                <div class="card-header">
+                    <h2>1. Gestione Assenze Docenti</h2>
+                </div>
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <label for="sostDate">Data Sostituzione:</label>
+                        <input type="date" id="sostDate" name="data_sostituzione" class="form-control">
+                    </div>
+            
+                    <div class="form-group mb-3">
+                        <label for="sostDocenteSelect">Docente da Aggiungere:</label>
+                        <div class="input-group">
+                            <select id="sostDocenteSelect" name="docente_da_aggiungere" class="form-control">
+                                <option value="">-- Seleziona Docente --</option>
+                                <!-- Popolato da JS -->
+                            </select>
+                            <button id="addAssenteBtn" class="btn btn-secondary">Aggiungi</button>
+                        </div>
+                    </div>
+            
+                    <h4>Docenti Assenti Selezionati:</h4>
+                    <ul id="listaDocentiAssenti" class="list-group lista-docenti-assenti">
+                        <li class="list-group-item no-selection">Nessun docente assente selezionato.</li>
+                        <!-- Elementi aggiunti da JS -->
+                    </ul>
+                    <button id="analizzaOrarioBtn" class="btn btn-primary btn-lg mt-3 w-100">2. Analizza Orario & Trova Slot da Coprire</button>
+                </div>
+            </section>
+        </div>
+
+        <div class="colonna-visualizzazione-slot">
+            <section class="visualizzazione-slot-e-suggerimenti">
+                 <!-- Titolo e Navigazione Slot (verranno generati da JS qui o dentro slotDaCoprireContainer) -->
+                <div id="slotDaCoprireContainer" class="mt-3 mt-md-0">
+                    <!-- Qui verranno visualizzati i dettagli dello slot e i suggerimenti -->
+                    <p class="text-muted text-center" style="padding-top: 20px;">Seleziona i docenti assenti e clicca su "Analizza Orario" per visualizzare gli slot da coprire e i suggerimenti.</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+<!---->
+<!-- Modale Confronto Orari 
+<div class="modal fade" id="confrontoOrariModal" tabindex="-1" role="dialog" aria-labelledby="confrontoOrariModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document"> {# modal-xl per più spazio #}
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confrontoOrariModalLabel">Confronta Orari Docenti</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Chiudi">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                   Colonna Docente Assente 
+                    <div class="col-md-6">
+                        <h6>Orario Docente Assente: <span id="modalDocenteAssenteNome"></span></h6>
+                        <p>Data: <span id="modalDataConfronto"></span></p>
+                        <div id="modalOrarioDocenteAssente" class="table-responsive">
+                             table placeholder...
+                        </div>
+                    </div>
+                     Colonna Docente Sostituto 
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="modalSelezionaSostituto"><h6>Orario Docente Sostituto:</h6></label>
+                            <select id="modalSelezionaSostituto" class="form-control form-control-sm mb-2">
+                                {# Opzioni popolate da JS #}
+                            </select>
+                        </div>
+                        <p>Data: <span id="modalDataConfrontoSostituto"></span></p> {# Ripetiamo la data per chiarezza #}
+                        <div id="modalOrarioDocenteSostituto" class="table-responsive">
+                            {# table placeholder... #}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+-->
+
+{% endblock %}
+

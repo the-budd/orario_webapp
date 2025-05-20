@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Si è verificato un errore</h4>
+        <p>
+            {% if error_message %}
+                {{ error_message }}
+            {% else %}
+                C'è stato un problema imprevisto. Riprova più tardi.
+            {% endif %}
+        </p>
+        <hr>
+        <p class="mb-0">
+            <a href="{{ url_for('index') }}" class="btn btn-primary">Torna alla Home</a>
+        </p>
+    </div>
+</div>
+{% endblock %} 
